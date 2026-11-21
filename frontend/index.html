@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="dist/output.css" rel="stylesheet">
+    <title>PinjamHub</title>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-8 py-4"> 
+      <a href="#" class="text-2xl font-bold text-blue-600">PinjamHub</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+  
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        
+        <section class="lg:col-span-1 bg-white p-6 rounded-xl shadow-sm border border-slate-200 h-fit">
+
+            <h2 class="text-lg font-bold text-slate-700 mb-4 border-b pb-2">
+                Masukkan Data Peminjam
+            </h2>
+
+            <form id="formPinjam" class="space-y-4">
+
+                <div>
+                    <label for="nama_peminjam" class="block text-sm font-medium mb-1">Nama Peminjam</label>
+                    <input type="text" id="nama_peminjam" required placeholder="Contoh: Arshalan"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="kelas" class="block text-sm font-medium mb-1">Kelas</label>
+                    <input type="text" id="kelas" required placeholder="Contoh: XI RPL A"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="alat" class="block text-sm font-medium mb-1">Pilih Alat</label>
+                    <select id="alat" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">--- Daftar Alat ---</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="jumlah" class="block text-sm font-medium mb-1">Jumlah</label>
+                    <input type="number" id="jumlah" min="1" value="1" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="tanggal_pinjam" class="block text-sm font-medium mb-1">Tanggal Pinjam</label>
+                    <input type="date" id="tanggal_pinjam" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="tanggal_kembali" class="block text-sm font-medium mb-1">Tanggal Kembali</label>
+                    <input type="date" id="tanggal_kembali" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="status" class="block text-sm font-medium mb-1">Status</label>
+                    <select id="status"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="Dipinjam">Dipinjam</option>
+                        <option value="Dikembalikan">Dikembalikan</option>
+                        <option value="Terlambat">Terlambat</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition">
+                    Ajukan Peminjaman
+                </button>
+
+            </form>
+
+        </section>
+
+      
+        <div class="lg:col-span-2 flex flex-col gap-6 self-start">
+
+            <!-- daftar alat -->
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+
+                <div class="flex justify-between items-center mb-5 border-b pb-3">
+                    <h2 class="text-lg font-bold text-slate-700">
+                        Daftar Alat
+                    </h2>
+
+                    <button type="button" id="btnTambahAlat"
+                        class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
+                        + Tambah Alat
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-3">ID Alat</th>
+                                <th class="px-4 py-3">Nama Alat</th>
+                                <th class="px-4 py-3">Kondisi</th>
+                                <th class="px-4 py-3">Stok</th>
+                                <th class="px-4 py-3">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftarAlat" class="divide-y divide-gray-200">
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- daftar kategori -->
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+
+                <div class="flex justify-between items-center mb-5 border-b pb-3">
+                    <h2 class="text-lg font-bold text-slate-700">
+                        Daftar Kategori
+                    </h2>
+
+                    <button type="button" id="btnTambahKategori"
+                        class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
+                        + Tambah Kategori
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-3">ID Kategori</th>
+                                <th class="px-4 py-3">Nama Kategori</th>
+                                <th class="px-4 py-3">Deskripsi</th>
+                                <th class="px-4 py-3">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftarKategori" class="divide-y divide-gray-200">
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- daftar peminjaman -->
+    <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+
+        <div class="flex justify-between items-center mb-5 border-b pb-3">
+            <div>
+                <h2 class="text-lg font-bold text-slate-700">
+                    Daftar Peminjaman
+                </h2>
+                <p class="text-sm text-gray-500">
+                    Data seluruh peminjaman alat praktik
+                </p>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left whitespace-nowrap">
+                <thead class="bg-gray-100 text-gray-700">
+                    <tr>
+                        <th class="px-4 py-3">ID Peminjaman</th>
+                        <th class="px-4 py-3">Nama Peminjam</th>
+                        <th class="px-4 py-3">Kelas</th>
+                        <th class="px-4 py-3">Nama Alat</th>
+                        <th class="px-4 py-3">Jumlah</th>
+                        <th class="px-4 py-3">Tanggal Pinjam</th>
+                        <th class="px-4 py-3">Tanggal Kembali</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarPeminjaman" class="divide-y divide-gray-200">
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+  </main>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
